@@ -15,21 +15,21 @@ This endpoint returns a JSON array in the following format:
 
 ```javascript
 [{
-	Date: {                             // the date on which the data were reported
-		cases: {
-			today: 	Number,             // the number of cases reported on this date
-			cumulative:	Number          // the total number of cases reported by this date
-		} | undefined,
-		hospitalizations: {
-			today: Number,              // the number of people hospitalized on this date
-			icu: Number,                // the number of people in the ICU on this date
-			hospitalsReporting: Number, // the number of hospitals reporting data
-		} | undefined,
-		tests: {
-			today: Number,              // the number of tests reported on this date
-			cumulative: Number,         // the total number of tests reported by this date
-		}
-	}
+    Date: {                             // the date on which the data were reported
+        cases: {
+            today: Number,              // the number of cases reported on this date
+            cumulative: Number          // the total number of cases reported by this date
+        } | undefined,
+        hospitalizations: {
+            today: Number,              // the number of people hospitalized on this date
+            icu: Number,                // the number of people in the ICU on this date
+            hospitalsReporting: Number, // the number of hospitals reporting data
+        } | undefined,
+        tests: {
+            today: Number,              // the number of tests reported on this date
+            cumulative: Number,         // the total number of tests reported by this date
+        }
+    }
 }]
 ```
 
