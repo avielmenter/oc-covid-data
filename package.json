@@ -2,11 +2,11 @@
   "name": "oc-covid-data",
   "version": "1.0.0",
   "description": "Presents Orange County, California's CoViD-19 data in a computer readable format.",
-  "main": "./build/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "start:dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
-    "start": "node ./build/index.js",
+    "start": "node ./dist/index.js",
     "postinstall": "npm run build"
   },
   "repository": {
