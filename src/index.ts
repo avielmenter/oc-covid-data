@@ -1,4 +1,5 @@
 import * as Express from 'express';
+import * as Path from 'path';
 
 import CSVRouter from './routes/csv';
 import JSONRouter from './routes/json';
@@ -14,7 +15,7 @@ app.use('/csv', CSVRouter);
 app.use('/json', JSONRouter);
 
 app.use('*', (req, res) => {
-	res.status(404).sendFile('./404.html', { root: __dirname });
+	res.status(404).sendFile(Path.resolve(__dirname, '../public/404.html'));
 });
 
 app.listen(PORT, () => {
