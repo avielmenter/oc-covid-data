@@ -73,4 +73,4 @@ This endpoing returns CSV data in the following format:
 ```
 
 # License
-This repository is licensed under the [GNU General Public License v3.0](https://github.com/avielmenter/oc-covid-data/blob/master/LICENSE).
+This repository is licensed under the [MIT License](https://github.com/avielmenter/oc-covid-data/blob/master/LICENSE).
