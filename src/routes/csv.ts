@@ -78,11 +78,14 @@ function dataToTable<T>(dummyDataItem: T, getDataItem: (d: Day) => T | undefined
 	const headerRow: List<string | undefined> = List(["date", ...toKeyArray(dummyDataItem)]);
 
 	const dataRows = data.entrySeq()
-		.map(([k, v]) => {
+		.map(([_k, v]) => {
 			const dataItem = getDataItem(v);
 			if (!dataItem)
 				return undefined;
-			return List<string | undefined>([k, ...parseDataItem(dummyDataItem, dataItem)]);
+
+			const friendlyDate = v.date.toISOString();
+
+			return List<string | undefined>([friendlyDate, ...parseDataItem(dummyDataItem, dataItem)]);
 		}).filter((r): r is List<string | undefined> => r != undefined)
 		.toArray();
 
