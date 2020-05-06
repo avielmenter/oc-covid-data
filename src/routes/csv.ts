@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { NextFunction, Response, Router } from 'express';
 import { List, Map } from 'immutable';
 
 import Day, { Cases, Tests, Hospitalizations } from '../data/day';
@@ -68,8 +68,11 @@ const parseRow = (row: List<string | undefined>): string => row.reduce(
 );
 
 const parseTable = (table: List<List<(string | undefined)>>): string => table.reduce(
-	(p, row) => p + "\n" + parseRow(row)
-	, "");
+	(p, row) => p
+		+ (p == "" ? "" : "\n")
+		+ parseRow(row)
+	, ""
+);
 
 function dataToTable<T>(dummyDataItem: T, getDataItem: (d: Day) => T | undefined, data: Map<string, Day>): List<List<string | undefined>> {
 	const headerRow: List<string | undefined> = List(["date", ...toKeyArray(dummyDataItem)]);
@@ -86,46 +89,31 @@ function dataToTable<T>(dummyDataItem: T, getDataItem: (d: Day) => T | undefined
 	return List<List<string | undefined>>([headerRow, ...dataRows]);
 }
 
+const route = <T>(dummy: T, getDataItem: (d: Day) => T | undefined) => async (req: any, res: Response<any>, next: NextFunction) => {
+	try {
+		const data = await getParsedData();
+		const table = dataToTable(dummy, getDataItem, data);
+
+		res.contentType('text/csv').send(parseTable(table));
+	}
+	catch (err) {
+		next(err);
+	}
+}
+
 let CSVRouter = Router();
 
-CSVRouter.get('/', async (req, res, next) => {
-	try {
-		const data = await getParsedData();
-		const table = dataToTable(dummyRow, dayToRow, data);
-		res.send(parseTable(table));
-	} catch (err) {
-		next(err);
-	}
-});
+CSVRouter.get('/', route(dummyRow, dayToRow));
+CSVRouter.get('/all.csv', route(dummyRow, dayToRow));
+CSVRouter.get('/cases(.csv)?', route(dummyCases, (d) => d.cases));
+CSVRouter.get('/hospitalizations(.csv)?', route(dummyHospitalizations, (d) => d.hospitalizations));
+CSVRouter.get('/tests(.csv)?', route(dummyTests, (d) => d.tests));
 
-CSVRouter.get('/cases', async (req, res, next) => {
-	try {
-		const data = await getParsedData();
-		const table = dataToTable(dummyCases, (d) => d.cases, data);
-		res.send(parseTable(table));
-	} catch (err) {
-		next(err);
-	}
-});
+CSVRouter.use((err: Error | undefined, req: any, res: Response, next: NextFunction) => {
+	const msg = err?.message || "Something went wrong.";
+	const tbl = List([List(["error"]), List([msg])]);
 
-CSVRouter.get('/hospitalizations', async (req, res, next) => {
-	try {
-		const data = await getParsedData();
-		const table = dataToTable(dummyHospitalizations, (d) => d.hospitalizations, data);
-		res.send(parseTable(table));
-	} catch (err) {
-		next(err);
-	}
-});
-
-CSVRouter.get('/tests', async (req, res, next) => {
-	try {
-		const data = await getParsedData();
-		const table = dataToTable(dummyTests, (d) => d.tests, data);
-		res.send(parseTable(table));
-	} catch (err) {
-		next(err);
-	}
+	res.contentType('text/csv').send(parseTable(tbl));
 });
 
 export default CSVRouter;

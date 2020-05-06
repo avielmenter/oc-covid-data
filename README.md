@@ -33,6 +33,14 @@ This endpoint returns a JSON array in the following format:
 }]
 ```
 
+If a request results in an error, this endpoint returns an error message in the following format:
+
+```javascript
+{
+    error: String   // a message explaining the error
+}
+```
+
 ## GET /csv
 Gets all CoViD data in comma-separated-value format.
 
@@ -70,6 +78,12 @@ Gets data about the number of reported tests.
 This endpoing returns CSV data in the following format:
 ```csv
 "date","cumulative","today"
+```
+
+If a request to a CSV endpoint results in an error, the endpoint returns an error message in the following format:
+
+```csv
+"error"
 ```
 
 # License

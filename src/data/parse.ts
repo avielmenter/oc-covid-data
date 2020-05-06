@@ -60,10 +60,8 @@ export function parseDays(caseArr: CaseArrItem[], hospitalArr: HospitalArrItem[]
 		{ date: parseDate(t[TESTDATA_DATE_COLUMN]), tests: parseTestItem(t) }
 	]));
 
-	console.log(caseDays);
 
 	const casesMap = Map<string, Day>(caseDays);
-
 
 	const hospitalzationsAndCasesMap = hospitalizationDays.reduce(	// fold hospitalizations into map
 		(p, [d, h]) => p.set(d, { ...p.get(d, h), hospitalizations: h.hospitalizations })

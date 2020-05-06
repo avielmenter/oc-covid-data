@@ -13,6 +13,10 @@ app.get('/', async (req, res) => {
 app.use('/csv', CSVRouter);
 app.use('/json', JSONRouter);
 
+app.use('*', (req, res) => {
+	res.status(404).sendFile('./404.html', { root: __dirname });
+});
+
 app.listen(PORT, () => {
 	console.log(`oc-covid-data is listening on port ${PORT}`);
 });
