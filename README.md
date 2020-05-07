@@ -1,9 +1,6 @@
 # OC CoViD Data
 An API to present Orange County, California's CoViD-19 data in a computer readable format.
 
-# Try It!
-API requests should be made to [https://oc-covid-data.herokuapp.com/](https://oc-covid-data.herokuapp.com/).
-
 # API
 API requests can be made to any endpoint in the following format:
 
