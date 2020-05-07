@@ -106,11 +106,10 @@ const route = <T>(dummy: T, getDataItem: (d: Day) => T | undefined) => async (re
 
 let CSVRouter = Router();
 
-CSVRouter.get('/', route(dummyRow, dayToRow));
 CSVRouter.get('/all.csv', route(dummyRow, dayToRow));
-CSVRouter.get('/cases(.csv)?', route(dummyCases, (d) => d.cases));
-CSVRouter.get('/hospitalizations(.csv)?', route(dummyHospitalizations, (d) => d.hospitalizations));
-CSVRouter.get('/tests(.csv)?', route(dummyTests, (d) => d.tests));
+CSVRouter.get('/cases.csv', route(dummyCases, (d) => d.cases));
+CSVRouter.get('/hospitalizations.csv', route(dummyHospitalizations, (d) => d.hospitalizations));
+CSVRouter.get('/tests.csv', route(dummyTests, (d) => d.tests));
 
 CSVRouter.use((err: Error | undefined, req: any, res: Response, next: NextFunction) => {
 	const msg = err?.message || "Something went wrong.";

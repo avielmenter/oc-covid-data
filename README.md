@@ -5,13 +5,14 @@ An API to present Orange County, California's CoViD-19 data in a computer readab
 API requests should be made to [https://oc-covid-data.herokuapp.com/](https://oc-covid-data.herokuapp.com/).
 
 # API
-Data can be requested by making an HTTP GET request to one of the following routes:
+API requests can be made to any endpoint in the following format:
 
-## GET /json
-Gets all CoViD data as a JSON array.
+`https://oc-covid-data.herokuapp.com/(all|cases|hospitalizations|tests).(csv|json)`
 
-### Returns
-This endpoint returns a JSON array in the following format:
+The first parameter specifies whether you would like to request all available data, or just data on cases, hospitalizations, or tests. The second parameter specifies whether the data should be returned in CSV or JSON format.
+
+## GET (all|cases|hospitalizations|tests).json
+JSON endpoints return data in the following format. If only data on cases, hospitalizations, or tests are requested, then other data will not be included in the response, nor will days without the requested kind of data.
 
 ```javascript
 [{
@@ -33,7 +34,7 @@ This endpoint returns a JSON array in the following format:
 }]
 ```
 
-If a request results in an error, this endpoint returns an error message in the following format:
+If a request to a JSON endpoint results in an error, the endpoint returns an error message in the following format:
 
 ```javascript
 {
@@ -41,50 +42,29 @@ If a request results in an error, this endpoint returns an error message in the 
 }
 ```
 
-## GET /csv
-Gets all CoViD data in comma-separated-value format.
-
-### Returns
-This endpoint returns CSV data in the following format:
-
-```csv
-"date","casesCumulative","casesToday","hospitalizationsICU","hospitalizationsReporting","hospitalizationsToday","testsCumulative","testsToday"
-```
-
-## GET /csv/cases
-Gets data about the number of reported cases.
-
-### Returns
-
-This endpoint returns CSV data in the following format:
-
-```csv
-"date","cumulative","today"
-```
-
-## GET /csv/hospitalizations
-Gets data about the number of reported hospitalizations.
-
-### Returns
-This endpoint returns CSV data in the following format:
-```csv
-"date","hospitalsReporting","icu","today"
-```
-
-## GET /csv/tests
-Gets data about the number of reported tests.
-
-### Returns
-This endpoing returns CSV data in the following format:
-```csv
-"date","cumulative","today"
-```
+## GET /(all|cases|hotpilizations|tests).csv
+CSV endpoints return data in the following format. If only data on cases, hospitalizations, or tests are requested, then the columns for other data will not be included in the response, and days without the requested kind of data will be excluded.
 
 If a request to a CSV endpoint results in an error, the endpoint returns an error message in the following format:
 
 ```csv
 "error"
 ```
+
+# Setup
+## Prerequisites
+To install run this project yourself, you must already have the latest version of [Node.js](https://nodejs.org/en/) installed.
+
+## Installation
+To install this web application, perform the following steps:
+1. Clone this repository via the command `git clone https://github.com/avielmenter/oc-covid-data.git`
+2. Navigate to the `oc-covid-data` folder.
+3. Run the command `npm install`.
+
+# Run
+To run an oc-covid-data server, navigate to the `oc-covid-data` folder, and start the application using the command `npm start`.
+
+You can also compile and run this project in developer mode by using the `npm run start:dev` command. This command will recompile the project whenever a code file in the `/src` folder is changed.
 
 # License
 This repository is licensed under the [MIT License](https://github.com/avielmenter/oc-covid-data/blob/master/LICENSE).

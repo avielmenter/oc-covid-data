@@ -11,8 +11,8 @@ app.get('/', async (req, res) => {
 	res.redirect('https://github.com/avielmenter/oc-covid-data#readme')
 });
 
-app.use('/csv', CSVRouter);
-app.use('/json', JSONRouter);
+app.use('/', CSVRouter);
+app.use('/', JSONRouter);
 
 app.use('*', (req, res) => {
 	res.status(404).sendFile(Path.resolve(__dirname, '../public/404.html'));
