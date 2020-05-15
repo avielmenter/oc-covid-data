@@ -13,7 +13,7 @@ JSON endpoints return a map of every day's data in the following format. If only
 
 ```javascript
 {
-    [Date]: {                             // the date on which the data were reported
+    [Date]: {                           // the date on which the data were reported
         cases: {
             today: Number,              // the number of cases reported on this date
             cumulative: Number          // the total number of cases reported by this date
