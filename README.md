@@ -26,7 +26,7 @@ JSON endpoints return a map of every day's data in the following format. If only
         tests: {
             today: Number,              // the number of tests reported on this date
             cumulative: Number,         // the total number of tests reported by this date
-        }
+        } | undefined
     }
 }
 ```
