@@ -115,7 +115,9 @@ CSVRouter.use((err: Error | undefined, req: any, res: Response, next: NextFuncti
 	const msg = err?.message || "Something went wrong.";
 	const tbl = List([List(["error"]), List([msg])]);
 
-	res.contentType('text/csv').send(parseTable(tbl));
+	res.status(500)
+		.contentType('text/csv')
+		.send(parseTable(tbl));
 });
 
 export default CSVRouter;
