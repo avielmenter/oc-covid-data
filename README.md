@@ -9,11 +9,11 @@ API requests can be made to any endpoint in the following format:
 The first parameter specifies whether you would like to request all available data, or just data on cases, hospitalizations, or tests. The second parameter specifies whether the data should be returned in CSV or JSON format.
 
 ## GET (all|cases|hospitalizations|tests).json
-JSON endpoints return data in the following format. If only data on cases, hospitalizations, or tests are requested, then other data will not be included in the response, nor will days without the requested kind of data.
+JSON endpoints return a map of every day's data in the following format. If only data on cases, hospitalizations, or tests are requested, then other data will not be included in the response, nor will days without the requested kind of data.
 
 ```javascript
-[{
-    Date: {                             // the date on which the data were reported
+{
+    [Date]: {                             // the date on which the data were reported
         cases: {
             today: Number,              // the number of cases reported on this date
             cumulative: Number          // the total number of cases reported by this date
@@ -28,7 +28,7 @@ JSON endpoints return data in the following format. If only data on cases, hospi
             cumulative: Number,         // the total number of tests reported by this date
         }
     }
-}]
+}
 ```
 
 If a request to a JSON endpoint results in an error, the endpoint returns an error message in the following format:
