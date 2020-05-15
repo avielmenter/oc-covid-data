@@ -39,7 +39,7 @@ If a request to a JSON endpoint results in an error, the endpoint returns an err
 }
 ```
 
-## GET /(all|cases|hotpilizations|tests).csv
+## GET /(all|cases|hospitalizations|tests).csv
 CSV endpoints return data in the following format. If only data on cases, hospitalizations, or tests are requested, then the columns for other data will not be included in the response, and days without the requested kind of data will be excluded.\
 
 ```csv
